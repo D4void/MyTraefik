@@ -11,11 +11,11 @@ services:
     image: "traefik:v2.11"
     container_name: "MyTraefik"
     ports:
-      - "80:80"
-      - "443:443"
-      - "9000:9000"
-      - "9080:8080"
-      - "22300:22300"
+      - "${HOST_IP}:80:80"
+      - "${HOST_IP}:443:443"
+      - "${HOST_IP}:9000:9000"
+      - "${HOST_IP}:9080:8080"
+      - "${HOST_IP}:22300:22300"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik_conf:/etc/traefik:ro
