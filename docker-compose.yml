@@ -1,0 +1,56 @@
+# Docker compose file pour démarrer un traefik global multi-projet
+#
+#
+
+version: "3"
+
+services:
+
+  traefik:
+    restart: "unless-stopped"
+    image: "traefik:v2.11"
+    container_name: "MyTraefik"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "9000:9000"
+      - "9080:8080"
+      - "22300:22300"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_conf:/etc/traefik:ro
+      - traefik_log:/log
+      - letsencrypt_data:/letsencrypt
+    networks:
+      default:
+        ipv4_address: ${TRAEFIK_IP}
+
+volumes:
+  traefik_conf:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${TRAEFIK_VOL}/etc/traefik
+      o: bind
+  traefik_log:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${TRAEFIK_VOL}/log
+      o: bind
+  letsencrypt_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${LETSENCRYPT_VOL}
+      o: bind
+
+networks:
+  default:
+    name: MyTraefikNet
+    driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: ${SUBNET}
+          gateway: ${GATEWAY}
