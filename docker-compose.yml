@@ -1,0 +1,62 @@
+# Docker compose file to start a multi-projects global traefik container
+# Docker network subnet and traefik IP container is fixed so that I can use it with my FAI BOX NAT feature
+#
+# Create .env file before starting. (check env.example)
+# Before first launch, init the host folders for docker volume with init-voldir.sh
+# Edit traefik.toml in the host volume folder.
+# Then docker compose up -d 
+# Traefik listen for incoming 80, 443, 9000 (check zmevents in zoneminder project) and 9080 ( traefik dashboard if enabled in traefik.toml)
+#
+# 2024/09/19
+#   traefik restart to always (bug at restart?)
+#   https://github.com/traefik/traefik/issues/5833
+
+services:
+
+  traefik:
+    restart: "always"
+    image: "traefik:v2.11.8"
+    container_name: "MyTraefik"
+    ports:
+      - "${HOST_IP}:80:80"
+      - "${HOST_IP}:443:443"
+      - "${HOST_IP}:9000:9000"
+      - "${HOST_IP}:9080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_conf:/etc/traefik:ro
+      - traefik_log:/log
+      - traefik_letsencrypt_data:/letsencrypt
+    networks:
+      default:
+        ipv4_address: ${TRAEFIK_IP}
+
+volumes:
+  traefik_conf:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${TRAEFIK_VOL}/etc/traefik
+      o: bind
+  traefik_log:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${TRAEFIK_VOL}/log
+      o: bind
+  traefik_letsencrypt_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${TRAEFIK_LETSENCRYPT_VOL}
+      o: bind
+
+networks:
+  default:
+    name: MyTraefikNet
+    driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: ${SUBNET}
+          gateway: ${GATEWAY}
