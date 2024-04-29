@@ -28,5 +28,5 @@
     stsPreload = true
     customFrameOptionsValue = "SAMEORIGIN"
     referrerPolicy = "same-origin"
-    featurePolicy = "vibrate 'self'"
+    permissionsPolicy = "vibrate 'self'"
     stsSeconds = 315360000

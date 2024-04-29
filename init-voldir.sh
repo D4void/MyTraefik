@@ -1,5 +1,5 @@
 #!/bin/bash -x
-# Script pour initialiser les répertoires pour les volumes docker
+# Script to init docker volumes directories
 
 source .env
 

@@ -1,6 +1,7 @@
-# Docker compose file pour démarrer un traefik global multi-projet
+# Docker compose file to start a multi-projects global traefik container
+# Docker network subnet and traefik IP container is fixed so that I can use it with my FAI BOX NAT feature
 #
-#
+# Create .env file before starting.
 
 services:
 
