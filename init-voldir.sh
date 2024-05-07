@@ -1,9 +1,9 @@
-#!/bin/bash -x
+#!/bin/bash
 # Script to init docker volumes directories
 
 source .env
 
-if [[ -d ${TRAEFIK_VOL} && -d ${LETSENCRYPT_VOL} ]]; then
+if [[ ! -d ${TRAEFIK_VOL} && ! -d ${LETSENCRYPT_VOL} ]]; then
     mkdir -p ${TRAEFIK_VOL}/etc/traefik
     mkdir -p ${TRAEFIK_VOL}/log
     mkdir -p ${LETSENCRYPT_VOL}
