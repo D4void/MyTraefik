@@ -11,3 +11,7 @@ chmod 750 ${TRAEFIK_VOL}/etc/traefik
 cp ./traefik-config/traefik.toml.example ${TRAEFIK_VOL}/etc/traefik/traefik.toml
 chmod 640 ${TRAEFIK_VOL}/etc/traefik/traefik.toml
 cp -R ./traefik-config/dynamic/ ${TRAEFIK_VOL}/etc/traefik/
+
+echo "Complete email address required by Letsencrypt in ${TRAEFIK_VOL}/etc/traefik/traefik.toml"
+
+echo "End."
