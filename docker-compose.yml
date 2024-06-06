@@ -2,10 +2,10 @@
 # Docker network subnet and traefik IP container is fixed so that I can use it with my FAI BOX NAT feature
 #
 # Create .env file before starting. (check env.example)
-# Before first launch, init the host folders for docker volume init-voldir.sh
+# Before first launch, init the host folders for docker volume with init-voldir.sh
 # Edit traefik.toml in the host volume folder.
 # Then docker compose up -d 
-# Traefik listen for incoming 80, 443, 9000 (see zoneminder project zmevents) and 9080 ( to traefik dashboard if enabled in traefik.toml)
+# Traefik listen for incoming 80, 443, 9000 (check zmevents in zoneminder project) and 9080 ( traefik dashboard if enabled in traefik.toml)
 
 services:
 
