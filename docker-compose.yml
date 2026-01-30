@@ -15,7 +15,7 @@ services:
 
   traefik:
     restart: "always"
-    image: "traefik:v2.11.8"
+    image: "traefik:${TRAEFIK_TAG}"
     container_name: "MyTraefik"
     ports:
       - "${HOST_IP}:80:80"
