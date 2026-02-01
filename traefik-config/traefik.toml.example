@@ -34,9 +34,9 @@
   [entryPoints.joplin]
     address = ":22300"
 
-[certificatesResolvers.mytlschallenge]
+[certificatesResolvers.mytlschallenge.acme]
     email = "name@email.com"
     #caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
     caServer = "https://acme-v02.api.letsencrypt.org/directory"
     storage = "/letsencrypt/acme.json"
-    [certificatesResolvers.mytlschallenge.tlsChallenge]
+    [certificatesResolvers.mytlschallenge.acme.tlsChallenge]
