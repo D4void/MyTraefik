@@ -1,14 +1,17 @@
-# Docker compose file to start a multi-projects global traefik container
-# Docker network subnet and traefik IP container is fixed so that I can use it with my FAI BOX NAT feature
+# Docker Compose file to start a global Traefik container for multiple projects
+# The Docker network subnet and Traefik container IP are fixed to enable ISP router NAT port forwarding
 #
-# Create .env file before starting. (check env.example)
-# Before first launch, init the host folders for docker volume with init-voldir.sh
-# Edit traefik.toml in the host volume folder.
-# Then docker compose up -d 
-# Traefik listen for incoming 80, 443, 9000 (check zmevents in zoneminder project) and 9080 ( traefik dashboard if enabled in traefik.toml)
+# Create the .env file before starting (see env.example)
+# Before the first launch, initialize the host folders for Docker volumes with init-voldir.sh
+# Edit traefik.toml in the host volume folder
+# Then run: docker compose up -d
+# Traefik listens on ports 80, 443, 9000 (see zmevents in the Zoneminder project), and 9080 (Traefik dashboard, if enabled in traefik.toml)
+#
+#    Copyright (C) 2026 - D4void
+#    Licensed under the MIT License. See LICENSE file in the project root for details.
 #
 # 2024/09/19
-#   traefik restart to always (bug at restart?)
+#   Changed Traefik restart policy to "always" (restart bug workaround)
 #   https://github.com/traefik/traefik/issues/5833
 
 services:
