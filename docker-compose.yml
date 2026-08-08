@@ -13,6 +13,10 @@
 # 2024/09/19
 #   Changed Traefik restart policy to "always" (restart bug workaround)
 #   https://github.com/traefik/traefik/issues/5833
+# 2026/08/08
+#   Added deploy.restart_policy: dockerd (live-restore) can leave the container
+#   "Exited" after a docker engine update, and plain "restart: always" alone
+#   does not bring it back up in that case (see same issue, comments from Jul 2024)
 
 services:
 
@@ -20,6 +24,10 @@ services:
     restart: "always"
     image: "traefik:${TRAEFIK_TAG}"
     container_name: "MyTraefik"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
     ports:
       - "${HOST_IP}:80:80"
       - "${HOST_IP}:443:443"
